@@ -1,0 +1,47 @@
+version: '3'
+services:
+  ensemble_nids:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    devices:
+      - /dev/nvidia0
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=flow_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    networks:
+      - flownet
+    volumes:
+      - type: bind
+        source: ./data
+        target: /app/data
+        read_only: false
+      - type: bind
+        source: ./results
+        target: /app/results
+        read_only: false
+    restart: no
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    networks:
+      - flownet
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=flow_db
+    ports:
+      - 5432:5432
+    restart: always
+networks:
+  flownet:
+volumes:
+  pgdata:
+    driver: local
