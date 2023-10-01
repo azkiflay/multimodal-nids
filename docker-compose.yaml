@@ -1,6 +1,6 @@
 version: '3'
 services:
-  ensemble_nids:
+  nidsensemble:
     build:
       context: .
       dockerfile: Dockerfile
