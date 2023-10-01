@@ -1,7 +1,17 @@
 Step 1: Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
     A) Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2F
+    $ mkdir data
+    $ cd data
+    $ mkdir unsw_nb15_dataset
+    $ mv /path/to/UNSW-NB15-CSV-FILES/* ./unsw_nb15_dataset/
+
     B) Download PCAP files of the UNSW-NB15 IDS dataset from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/
-        Note that at the time of writing this document, the URLs of the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
+    $ mkdir feb_pcap
+    $ mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs in February
+    $ $ mkdir jan_pcap
+    $ mv /path/to/pcaps 22-1-2015/* ./jan_pcap  # UNSW-NB15 PCAPs in January
+Note that at the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
+
 Step 2: Install Docker Engine on Ubuntu
 Installation using the Apt repository. Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterwards, you can install and update Docker from the repository. More details at https://docs.docker.com/engine/install/ubuntu/
 A) Set up Docker's Apt repository.
@@ -30,7 +40,8 @@ You have now successfully installed and started Docker Engine.
 Step 3: Change to project directory
 Open terminal
 $ cd nidsensemble
-$ docker comppose build
+$ mkdir results
+$ docker compose build
 $ docker compose up postgres
 Open another terminal tab (Ctrl + Shift + T)
 $ docker compose up nidsensemble # on the new terminal tab
