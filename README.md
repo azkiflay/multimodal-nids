@@ -1,3 +1,7 @@
+# NIDSENSEMBLE
+NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages complementary threat intelligence by learning from flow-based traffic features, and the first few bytes of a prototocl payload. It is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. To detect network intrusions, NIDSENSEMBLE combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. It extracting and labeling packet capture (PCAP) files of modern network intrusion detection system datasets. Most previous NIDSes are based on flow-based features and their detection capability of payload-based attacks is limited. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner.
+
+# Installation
 Step 1: Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
     A) Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2F
     $ mkdir data
@@ -37,6 +41,7 @@ The following command downloads a test image and runs it in a container. When th
 $ sudo docker run hello-world
 You have now successfully installed and started Docker Engine.
 
+# Usuage
 Step 3: Change to project directory
 Open terminal
 $ cd nidsensemble
@@ -49,6 +54,6 @@ $ docker compose up nidsensemble # on the new terminal tab
 The PosgreSQL database will be stored on docker_data subdirectory, which is on the same directory as the nidsensemble project directory.
 The container and other associated files are also stored in the docker_data subdirectory.
 
-sudo apt install nvidia-cuda-toolkit # On Host machine (not outsided Docker container) NVIDIA GPU Drivers for Tensorflow
+$ sudo apt install nvidia-cuda-toolkit # On Host machine (not outsided Docker container) NVIDIA GPU Drivers for Tensorflow
 
 Finally, ensure that no other application is using port number 5432, which is needed to run postgresql database. If port 5432 is in use, unused port can be setup for nidsensemble in the docker-compose.yaml.
