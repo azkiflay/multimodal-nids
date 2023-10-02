@@ -20,7 +20,7 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
   ```
 **Notes**
 + At the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
-+ The PCAP files of the dataset are nearly **100 Gigabyte**. So, it is important to make enough disk storage is avaialbe for the PCAP and CSV files of the UNSW-NB15 dataset as well as to install the required packages for the project.
++ The PCAP files of the dataset are nearly **100 Gigabyte**. So, it is important to make sure enough disk storage is avaialbe for the PCAP and CSV files of the UNSW-NB15 dataset as well as free disk space to install the required packages for the project.
 
 # Installation
 ## Install Docker Engine on Ubuntu
