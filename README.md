@@ -4,7 +4,7 @@ NIDSENSEMBLE is a Machine Learning (ML) based Network Intrusion Detection System
 # Dataset
 ### Download the CSV files of the UNSW-NB15 dataset from [CSVs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files). 
 
-Move the CSVs to the **unsw_nb15_dataset** project subdirectory as shown below.
+Move the downloaded CSV files to the **unsw_nb15_dataset** project subdirectory as shown below.
   ```bash
   mkdir data
   cd data
@@ -14,7 +14,7 @@ Move the CSVs to the **unsw_nb15_dataset** project subdirectory as shown below.
 
 ### Download the PCAP files of the UNSW-NB15 dataset from [PCAPs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/).
 
-Move the **pcaps 17-2-2015** and **pcaps 22-1-2015** to *feb_pcap* and *jan_pcap* project subdirectories, respectively, as shown below.
+Move the PCAP files inside **pcaps 17-2-2015** and **pcaps 22-1-2015** to **feb_pcap** and **jan_pcap** project subdirectories, respectively, as shown below.
   ```bash
   mkdir feb_pcap
   mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs capture in February
