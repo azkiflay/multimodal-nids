@@ -2,8 +2,7 @@
 NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages complementary threat intelligence by learning from flow-based traffic features, and the first few bytes of a prototocl payload. It is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. NIDSENSEMBLE combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are based on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and due to the fact that flow-based data features are collected in specific scenarios. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. NIDSENSEMBLE has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
 
 # Dataset
-## Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
-### Download the UNSW-NB15 CSV files from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files).
+### Download the Comma Separated Values (CSV) files of the UNSW-NB15 dataset from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files).
   ```bash
   mkdir data
   cd data
@@ -11,7 +10,7 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
   mv /path/to/UNSW-NB15-CSV-FILES/* ./unsw_nb15_dataset/
   ```
 
-### Download PCAP files of the UNSW-NB15 dataset from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/).
+### Download Packet Capture (PCAP) files of the UNSW-NB15 dataset from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/).
   ```bash
   mkdir feb_pcap
   mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs in February
