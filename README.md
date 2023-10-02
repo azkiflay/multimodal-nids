@@ -75,6 +75,7 @@ To run NIDSENSEMBLE, open another terminal tab (Ctrl + Shift + T) and use the fo
   ```bash
   docker compose up nidsensemble # on the new terminal tab
   ```
+Separate ML models are trained for Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) of the UNSW-NB15 dataset. Note that TCP and UDP constitute almost 98% of total traffic flows in the dataset. The trained ML models and model evaluation results will be saved in the *results* subdirectory.
 # Citation
 If you would like to use NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
 ```bash
