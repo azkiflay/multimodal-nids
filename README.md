@@ -2,7 +2,7 @@
 NIDSENSEMBLE is a Machine Learning (ML) based Network Intrusion Detection Systems (NIDS) that detects network attacks by learning from complementary sources of threat intelligence through the use of flow-based traffic features, and the first few bytes of protocol payload. NIDSENSEMBLE is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. It combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are trained on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and the fact that flow-based data features are collected under specific scenarios. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. NIDSENSEMBLE has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
 
 # Dataset
-### Download the CSV files of the UNSW-NB15 dataset from [CSVs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files).
+### Download the CSV files of the UNSW-NB15 dataset from [CSVs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files) and place them inside the *unsw_nb15_dataset* project subdirectory as shown below.
   ```bash
   mkdir data
   cd data
@@ -10,7 +10,7 @@ NIDSENSEMBLE is a Machine Learning (ML) based Network Intrusion Detection System
   mv /path/to/UNSW-NB15-CSV-FILES/* ./unsw_nb15_dataset/
   ```
 
-### Download the PCAP files of the UNSW-NB15 dataset from [PCAPs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/).
+### Download the PCAP files of the UNSW-NB15 dataset from [PCAPs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/) and place the *pcaps 17-2-2015* and *22-1-2015* PCAPs inside *feb_pcap* and *jan_pcap* project subdirectories, respectively as shown below.
   ```bash
   mkdir feb_pcap
   mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs in February
