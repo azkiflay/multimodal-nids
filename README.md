@@ -18,7 +18,9 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
   mkdir jan_pcap
   mv /path/to/pcaps 22-1-2015/* ./jan_pcap  # UNSW-NB15 PCAPs in January
   ```
-Note that at the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
+**Notes**
++ At the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
++ The PCAP files of the dataset are nearly **100 Gigabyte**. So, it is important to make enough disk storage is avaialbe for the PCAP and CSV files of the UNSW-NB15 dataset as well as to install the required packages for the project.
 
 ## Install Docker Engine on Ubuntu
 Installation using the Apt repository. Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterwards, you can install and update Docker from the repository. More details at https://docs.docker.com/engine/install/ubuntu/
@@ -56,7 +58,6 @@ When the container runs, it should print a confirmation message. If so, you have
   sudo apt install nvidia-cuda-toolkit
   ```
 # Usuage
-## Change to project directory
 Open terminal and run the project using the following commands.
   ```bash
   cd nidsensemble
@@ -74,7 +75,7 @@ To run NIDSENSEMBLE, open another terminal tab (Ctrl + Shift + T) and use the fo
   docker compose up nidsensemble # on the new terminal tab
   ```
 # Citation
-If you would like to cite NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
+If you would like to use NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
 ```bash
 Paper Bibtex
 ```
