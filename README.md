@@ -3,7 +3,7 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
 
 # Dataset
 ## Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
-### Download the UNSW-NB15 CSV files from [UNSW-NB15 CSV files](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files)
+### Download the UNSW-NB15 CSV files from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files)
   ```bash
   mkdir data
   cd data
@@ -11,7 +11,7 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
   mv /path/to/UNSW-NB15-CSV-FILES/* ./unsw_nb15_dataset/
   ```
 
-### Download PCAP files of the UNSW-NB15 dataset from [PCAP files](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/)
+### Download PCAP files of the UNSW-NB15 dataset from [here](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20pcap%20files/)
   ```bash
   mkdir feb_pcap
   mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs in February
