@@ -1,7 +1,6 @@
 FROM tensorflow/tensorflow:latest-gpu
 WORKDIR /app
 ENV POSTGRES_SCHEMA_NAME=public
-
 RUN apt-get update && apt-get install -y \
     texlive-full \
     texlive-latex-extra \
