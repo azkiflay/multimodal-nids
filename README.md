@@ -75,4 +75,6 @@ To run NIDSENSEMBLE, open another terminal tab (Ctrl + Shift + T) and use the fo
   ```
 # Citation
 If you would like to cite NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
-
+```bash
+Paper Bibtex
+```
