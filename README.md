@@ -73,3 +73,6 @@ To run NIDSENSEMBLE, open another terminal tab (Ctrl + Shift + T) and use the fo
   ```bash
   docker compose up nidsensemble # on the new terminal tab
   ```
+# Citation
+If you would like to cite NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
+
