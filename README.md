@@ -2,8 +2,8 @@
 NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages complementary threat intelligence by learning from flow-based traffic features, and the first few bytes of a prototocl payload. It is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. NIDSENSEMBLE combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are based on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and due to the fact that flow-based data features are collected in specific scenarios. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. NIDSENSEMBLE has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
 
 # Installation
-### Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
-A) Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2F
+## Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
+### Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2F
   ```bash
   mkdir data
   cd data
@@ -18,7 +18,6 @@ A) Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/in
   mkdir jan_pcap
   mv /path/to/pcaps 22-1-2015/* ./jan_pcap  # UNSW-NB15 PCAPs in January
   ```
-
 Note that at the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
 
 ## Install Docker Engine on Ubuntu
