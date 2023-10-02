@@ -1,7 +1,7 @@
 # NIDSENSEMBLE
 NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages complementary threat intelligence by learning from flow-based traffic features, and the first few bytes of a prototocl payload. It is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. NIDSENSEMBLE combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are based on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and due to the fact that flow-based data features are collected in specific scenarios. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. NIDSENSEMBLE has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
 
-# Installation
+# Data
 ## Download CSV files and Packet Capture (PCAP) files of the UNSW-NB15 IDS dataset
 ### Download the UNSW-NB15 CSV files from https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2F
   ```bash
@@ -22,6 +22,7 @@ NIDSENSEMBLE is Network Intrusion Detection Systems (NIDS) that leverages comple
 + At the time of writing this document, the CSV and PCAP files of the UNSW-NB15 dataset are available at the above URLs. If the URLs of the files change, they are to be downloaded from the new URLs according to announcements by the authors of the UNSW-NB15 IDS dataset or their affiliated institution.
 + The PCAP files of the dataset are nearly **100 Gigabyte**. So, it is important to make enough disk storage is avaialbe for the PCAP and CSV files of the UNSW-NB15 dataset as well as to install the required packages for the project.
 
+# Installation
 ## Install Docker Engine on Ubuntu
 Installation using the Apt repository. Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterwards, you can install and update Docker from the repository. More details at https://docs.docker.com/engine/install/ubuntu/
 ### Set up Docker's Apt repository.
