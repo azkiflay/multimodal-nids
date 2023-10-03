@@ -12,12 +12,6 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
-plt.style.use("seaborn-paper") # Options: bmh, classic, dark_background, fivethirtyeight, ggplot,
-                    # grayscale,  seaborn-bright,  seaborn-colorblind, seaborn-dark,
-                    #  seaborn-dark-palette,  seaborn-darkgrid,  seaborn-deep,
-                    #  seaborn-muted,  seaborn-notebook,  seaborn-pastel,
-                    #  seaborn-poster,  seaborn-talk, seaborn-ticks,
-                    #  seaborn-white,  seaborn-whitegrid
 plt.rcParams['axes.formatter.useoffset'] = True
 from matplotlib import rc
 rc('text', usetex=True)
