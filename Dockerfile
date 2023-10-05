@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM ubuntu:22.04
 WORKDIR /app
 ENV POSTGRES_SCHEMA_NAME=public
 RUN apt-get update && apt-get install -y \
@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install -U scikit-learn
-RUN pip3 install yellowbrick
 EXPOSE 8000  
 COPY app /app
 CMD ["python3", "main.py"]
