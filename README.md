@@ -1,5 +1,5 @@
-# NIDSENSEMBLE
-NIDSENSEMBLE is a Machine Learning (ML) based Network Intrusion Detection Systems (NIDS) that detects network attacks by learning from complementary sources of threat intelligence through the use of flow-based traffic features, and the first few bytes of protocol payload. NIDSENSEMBLE is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. It combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are trained on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and the fact that flow-based data features are collected under specific scenarios. NIDSENSEMBLE tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. NIDSENSEMBLE has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
+# Multimodal-NIDS
+Multimodal-NIDS is a Machine Learning (ML) based Network Intrusion Detection Systems (NIDS) that detects network attacks by learning from complementary sources of threat intelligence through the use of flow-based traffic features, and the first few bytes of protocol payload. Multimodal-NIDS is composed of two separate Machine Learning (ML) models each of which are trained on distinct types of network data. It combines classification probabilities from the two ML models using a soft voting scheme to detect attacks. Most previous ML-based NIDSes are trained on flow-based features and they have limited ability to detect payload-based attacks. Furthermore, flow-based NIDSes are limited in their adpatability to different network environments due to inherent changes in network traffic characteristics and the fact that flow-based data features are collected under specific scenarios. Multimodal-NIDS tackles these challenges by learning from both flow-based and payload-based traffic features in a complementary manner. Multimodal-NIDS has been trained and tested using Comma Separated Values (CSV) values, and the corresponding Packet Capture (PCAP) files of the publicly available UNSW-NB15 dataset.
 
 # Dataset
 ### Download the CSV files of the UNSW-NB15 dataset from [CSVs](https://cloudstor.aarnet.edu.au/plus/index.php/s/2DhnLGDdEECo4ys?path=%2FUNSW-NB15%20-%20CSV%20Files). 
@@ -64,23 +64,24 @@ When the container runs, it should print a confirmation message. If so, you have
 # Usuage
 Open terminal and run the project using the following commands.
   ```bash
-  cd nidsensemble
+  cd multimodal-nids
   mkdir results
   docker compose build
   docker compose up postgres
   ```
 
-Note that the PosgreSQL database will be stored on docker_data subdirectory, which is on the same directory as the nidsensemble project directory. The container and other associated files are also stored in the docker_data subdirectory.
+Note that the PosgreSQL database will be stored on docker_data subdirectory, which is on the same directory as the multimodal-nids project directory. The container and other associated files are also stored in the docker_data subdirectory.
 
-Finally, ensure that no other application is using port number 5432, which is needed to run postgresql database. If port 5432 is in use, unused port can be setup for nidsensemble in the docker-compose.yaml.
+Finally, ensure that no other application is using port number 5432, which is needed to run postgresql database. If port 5432 is in use, unused port can be setup for multimodal-nids in the docker-compose.yaml.
 
-To run NIDSENSEMBLE, open another terminal tab (Ctrl + Shift + T) and use the following command to run the project.
+To run Multimodal-NIDS, open another terminal tab (Ctrl + Shift + T) and use the following command to run the project.
   ```bash
-  docker compose up nidsensemble # on the new terminal tab
+  docker compose up multimodal-nids # on the new terminal tab
   ```
- NIDSENSEMBLE has two ML subsystems, a flow-based susbsytem and a payload-based subsystem, which are trained using flow-based traffic features and the first 32 bytes of protocol payload, respectively. Separate ML models are trained for Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) of the UNSW-NB15 dataset. Note that TCP and UDP constitute more than 97% of total traffic flows in the dataset. The trained ML models as well as the model evaluation results are saved in the *results* subdirectory.
+ Multimodal-NIDS has two ML subsystems, a flow-based susbsytem and a payload-based subsystem, which are trained using flow-based traffic features and the first 32 bytes of protocol payload, respectively. Separate ML models are trained for Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) of the UNSW-NB15 dataset. Note that TCP and UDP constitute more than 97% of total traffic flows in the dataset. The trained ML models as well as the model evaluation results are saved in the *results* subdirectory.
 # Citation
-If you would like to use NIDSENSEMBLE in your work, please cite our paper which presents details of how NIDSENSEMBLE works and the obtained results:
+If you would like to use Multimodal-NIDS in your work, please cite our paper which presents details of how Multimodal-NIDS works and the obtained results:
 ```bash
 Paper Bibtex
 ```
+
