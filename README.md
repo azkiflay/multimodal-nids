@@ -64,15 +64,15 @@ When the container runs, it should print a confirmation message. If so, you have
 # Usuage
 Open terminal and run the project using the following commands.
   ```bash
-  cd multimodal-nids
+  cd multimodalnids
   mkdir results
   docker compose build
   docker compose up postgres
   ```
 
-Note that the PosgreSQL database will be stored on docker_data subdirectory, which is on the same directory as the multimodal-nids project directory. The container and other associated files are also stored in the docker_data subdirectory.
+Note that the PosgreSQL database will be stored on docker_data subdirectory, which is on the same directory as the multimodalnids project directory. The container and other associated files are also stored in the docker_data subdirectory.
 
-Finally, ensure that no other application is using port number 5432, which is needed to run postgresql database. If port 5432 is in use, unused port can be setup for multimodal-nids in the docker-compose.yaml.
+Finally, ensure that no other application is using port number 5432, which is needed to run postgresql database. If port 5432 is in use, unused port can be setup for multimodalnids in the docker-compose.yaml.
 
 To run Multimodal-NIDS, open another terminal tab (Ctrl + Shift + T) and use the following command to run the project.
   ```bash
