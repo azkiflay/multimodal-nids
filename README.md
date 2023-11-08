@@ -76,7 +76,7 @@ Finally, ensure that no other application is using port number 5432, which is ne
 
 To run Multimodal-NIDS, open another terminal tab (Ctrl + Shift + T) and use the following command to run the project.
   ```bash
-  docker compose up multimodal-nids # on the new terminal tab
+  docker compose up multimodalnids # on the new terminal tab
   ```
  Multimodal-NIDS has two ML subsystems, a flow-based susbsytem and a payload-based subsystem, which are trained using flow-based traffic features and the first 32 bytes of protocol payload, respectively. Separate ML models are trained for Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) of the UNSW-NB15 dataset. Note that TCP and UDP constitute more than 97% of total traffic flows in the dataset. The trained ML models as well as the model evaluation results are saved in the *results* subdirectory.
 # Citation
