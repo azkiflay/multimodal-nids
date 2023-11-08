@@ -64,7 +64,7 @@ When the container runs, it should print a confirmation message. If so, you have
 # Usuage
 Open terminal and run the project using the following commands.
   ```bash
-  cd multimodalnids
+  cd multimodal-nids
   mkdir results
   docker compose build
   docker compose up postgres
