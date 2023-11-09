@@ -116,7 +116,7 @@ class FlowClassifier:
                     print("Saving Binary Ensemble-NIDS scores.")
                     self.save_binary_scores_vote(flow_model, payload_model, X_flow_test, X_payload_test, y_flow_test, binary_class_dict, 0.6, 0.4)
                     binary_scores = self.get_binary_scores_vote(flow_model, payload_model, X_flow_test, X_payload_test, y_flow_test, 0.6, 0.4)
-                    print("Ensemble_NIDS binary_scores: \n", binary_scores)
+                    print("multimodalnids binary_scores: \n", binary_scores)
                     self.plot_binary_ROC_curve_vote(flow_model, payload_model, X_flow_test, X_payload_test, y_flow_test, 0.6, 0.4)
                     self.plot_binary_confusion_matrix_vote(flow_model, payload_model, X_flow_test, X_payload_test, y_flow_test, encoder_flow, 0.6, 0.4)
                     self.get_binary_fpr_vote(flow_model, payload_model, X_flow_test, X_payload_test, y_flow_test, 0.6, 0.4)
@@ -186,7 +186,7 @@ class FlowClassifier:
             "F1": f1_flow
         }
         metrics_df = pd.DataFrame(metrics, index=[0])
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         filename = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_accuracy_metrics.csv")
         metrics_df.to_csv(filename, index=False)
         print(f"Binary scores for {model_name} saved at {filename}")
@@ -212,7 +212,7 @@ class FlowClassifier:
             'Support': list(support) + [sum(support), '', '']
         })
         df.loc[len(df)] = ['Accuracy', '', '', accuracy_score(y, y_pred), '']
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_average_scores.csv")
         df.to_csv(file_name, index=False)
         print(f"Binary scores for {model_name} saved at {file_name}")
@@ -244,7 +244,7 @@ class FlowClassifier:
         plt.subplots_adjust(wspace=0.1, hspace=0.1)
         plt.tight_layout()
         # file_name = model_name + "_" + str(dataset) + "_" + str(self.protocol) + "_" + str(self.class_type) + "_roc.pdf"
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_roc.pdf")
         fig.savefig(file_name, dpi=300, bbox_inches='tight', pad_inches=0.05)
         print(f"Binary ROC curve for {model_name} saved at {file_name}")
@@ -281,7 +281,7 @@ class FlowClassifier:
         ax.set_yticklabels(codes, fontsize=font_size-4)
         plt.subplots_adjust(wspace=0.1, hspace=0.1)
         plt.tight_layout()
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_confusion_matrix.pdf")
         fig.savefig(file_name, dpi=300, bbox_inches='tight', pad_inches=0.05)
         print(f"Binary confusion matrix for {model_name} saved at {file_name}")
@@ -290,7 +290,7 @@ class FlowClassifier:
     def get_binary_fpr_vote(self, flow_model, payload_model, X_flow, X_payload, y, flow_scale=0.5, payload_scale=0.5):
         results = []
         results.append(["Model Name", "False Positive Rate (FPR)"])
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         print(f"Binary FPR for {model_name}.\n")
         y_pred = self.predict_vote_binary(flow_model, payload_model, X_flow, X_payload, flow_scale, payload_scale)
         tn, fp, fn, tp = confusion_matrix(y, y_pred).ravel()
@@ -316,7 +316,7 @@ class FlowClassifier:
             'F1': f1
         }
         metrics_df = pd.DataFrame(metrics, index=[0]) # Save the metrics to a CSV file
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_accuracy_metrics.csv")
         metrics_df.to_csv(file_name, index=False)
         print(f"Multiclass scores for {model_name} saved at {file_name}")
@@ -364,7 +364,7 @@ class FlowClassifier:
         ax.set_xlabel(r'\textbf{False Positive Rate (FPR)}', fontsize=font_size-6, fontweight='bold', fontstyle=font_style, labelpad=4)
         plt.subplots_adjust(wspace=0.1, hspace=0.1)
         plt.tight_layout()
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_roc.pdf")
         fig.savefig(file_name, dpi=300, bbox_inches='tight', pad_inches=0.05)
         print(f"Multiclass ROC Curves for {model_name} Saved at {file_name}")
@@ -405,7 +405,7 @@ class FlowClassifier:
         ax.grid(False)
         plt.subplots_adjust(wspace=0.1, hspace=0.3)
         plt.tight_layout()
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{model_name}_{self.dataset}_{self.protocol}_{self.class_type}_confusion_matrix.pdf")
         fig.savefig(file_name, dpi=300,
                     bbox_inches='tight', pad_inches=0.05)
@@ -423,7 +423,7 @@ class FlowClassifier:
             fpr_dict[encoder.classes_[i]] = fpr  # Store FPR for the class # fpr_dict[i] = fpr # Store FPR for the class
         fpr_df = pd.DataFrame.from_dict(fpr_dict, orient='index', columns=['FPR']) # Save the FPR values to a CSV file
         fpr_df.index.name = 'Class'
-        name = "Ensemble_NIDS"
+        name = "multimodalnids"
         file_name = os.path.join('/app/results/', f"{name}_{self.dataset}_{self.protocol}_{self.class_type}_fpr.csv")
         fpr_df.to_csv(file_name)
         print(f"Multiclass FPR for {name} saved at {file_name}")
@@ -433,7 +433,7 @@ class FlowClassifier:
         y_class_labels =  encoder.classes_
         y_pred = self.predict_vote_multiclass(flow_model, payload_model, X_flow, X_payload, flow_scale, payload_scale)
         cm = confusion_matrix(y, y_pred) # encoder.transform(y_pred))
-        model_name = "Ensemble_NIDS"
+        model_name = "multimodalnids"
         fpr_results = self.calculate_muticlass_fpr_vote(cm, model_name, encoder)
         for class_idx, fpr in fpr_results.items():
             print(f"Class {class_idx}: FPR = {fpr}")  
