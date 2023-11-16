@@ -17,9 +17,9 @@ Move the downloaded CSV files to the **unsw_nb15_dataset** project subdirectory 
 Move the PCAP files inside **pcaps 17-2-2015** and **pcaps 22-1-2015** to **feb_pcap** and **jan_pcap** project subdirectories, respectively, as shown below.
   ```bash
   mkdir feb_pcap
-  mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs capture in February
+  mv /path/to/pcaps 17-2-2015/* ./feb_pcap # UNSW-NB15 PCAPs in February
   mkdir jan_pcap
-  mv /path/to/pcaps 22-1-2015/* ./jan_pcap  # UNSW-NB15 PCAPs capture in January
+  mv /path/to/pcaps 22-1-2015/* ./jan_pcap  # UNSW-NB15 PCAPs in January
   ```
 
 **Note:**
