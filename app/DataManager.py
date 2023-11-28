@@ -30,7 +30,7 @@ matplotlib.rcParams['text.usetex'] = True
 import matplotlib.pyplot as plt
 plt.rcParams['font.family'] = 'DeJavu Serif'
 plt.rcParams['font.serif'] = ['Times New Roman']
-from matplotlib.patches import Patch  # for custom legend - square patches
+from matplotlib.patches import Patch
 import seaborn as sns
 import matplotlib as mpl
 from matplotlib import rc
@@ -42,7 +42,7 @@ label_encoder = LabelEncoder()
 label_binarizer = LabelBinarizer()
 multilabel_binarizer = MultiLabelBinarizer()
 
-unsw_flow_columns = ["id", "srcip", "sport", "dstip", "dport", "proto", "state", "dur", # "flags", "stimepcap", "payload", 
+unsw_flow_columns = ["id", "srcip", "sport", "dstip", "dport", "proto", "state", "dur", 
                "sbytes", "dbytes", "sttl", "dttl", "sloss", "dloss", "service", "sload", "dload", "spkts", "dpkts", 
                "swin", "dwin", "stcpb", "dtcpb", "smeansz", "dmeansz", "transdepth", "resbdylen", "sjit", "djit", "stime", "ltime", 
                "sintpkt", "dintpkt", "tcprtt", "synack", "ackdat", "issmipsports", "ctstatettl", "ctflwhttpmthd", "isftplogin", 
@@ -50,7 +50,7 @@ unsw_flow_columns = ["id", "srcip", "sport", "dstip", "dport", "proto", "state",
                ]
 
 class DataManager:
-    db_host = os.environ.get('DB_HOST') # Get database connection details from environment variables set in docker-compose.yaml
+    db_host = os.environ.get('DB_HOST')
     db_port = os.environ.get('DB_PORT')
     db_name = os.environ.get('DB_NAME')
     db_user = 'postgres'
@@ -112,7 +112,7 @@ class DataManager:
                 for row in rows[1:]:
                     cell_value = row[column_index]
                     for unique_value, variations in value_variations.items():
-                        if cell_value in variations or cell_value.strip() in variations: # if cell_value.strip() in variations:
+                        if cell_value in variations or cell_value.strip() in variations:
                             row[column_index] = unique_value
                             instances_changed += 1
                             if unique_value in instances_changed_dict:
@@ -196,7 +196,7 @@ class DataManager:
                         input_data = {column: value for column, value in zip(header, row)}
                         insert_stmt = table.insert().values(**input_data)
                         connection.execute(insert_stmt)
-                os.remove(input_file) # Delete the CSV file
+                os.remove(input_file)
                 print(f"CSV file {input_file} deleted successfully.", flush=True)
                 connection.commit()
                 print(f"UNSW_NB_15 dataset CSV values inserted to table 'unsw_nb15_dataset_csv' successfully.", flush=True)
@@ -271,7 +271,7 @@ class DataManager:
                         connection.execute(delete_stmt)
                 print(f"Number of redundant rows removed: {num_redundancies}", flush=True)
                 inspector = inspect(engine)
-                if inspector.has_table('unsw_nb15_dataset_csv'): # TODO: <pre>sqlalchemy.exc.ProgrammingError: (psycopg2.errors.DuplicateTable) relation &quot;unsw_nb15_csv_features_cleaned&quot; already exists</pre>
+                if inspector.has_table('unsw_nb15_dataset_csv'):
                     if inspector.has_table('unsw_nb15_csv_features_cleaned'):
                         drop_query = text("DROP TABLE IF EXISTS unsw_nb15_csv_features_cleaned")
                         connection.execute(drop_query)
@@ -294,7 +294,7 @@ class DataManager:
     def extract_data_from_unsw_pcaps(self, protocol):
         print(f"UNSW-NB15 Dataset: PCAP data extraction from dataset has started for protocol: {protocol}.", flush=True)
         try:
-            if shutil.which('tshark') is None: # Check if 'tshark' is installed
+            if shutil.which('tshark') is None:
                 print("'tshark' is not installed or not found in the system's PATH.", flush=True)
                 print("Please install 'tshark' before running this program.", flush=True)
                 print("In Linux, 'apt-get install tshark' can be used to install tshark. Check documentation for your particular system.", flush=True)
@@ -352,7 +352,7 @@ class DataManager:
                             print("Unknown protocol. Exiting ...")
                             exit()
                         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True)
-                        with open(output_file, 'a') as file: # Caution: appending mode so program should be run only once as data would repeat.
+                        with open(output_file, 'a') as file:
                             for line in process.stdout:
                                 file.write(line)
                                 print(line, end='', flush=True)
@@ -626,69 +626,35 @@ class DataManager:
                     if connection:
                         connection.close()
 
-    def get_payload_data(self, df, num_bytes): ### TODO: Normalize payload entries
+    def get_payload_data(self, df, num_bytes):
         X_list = df["payload"].to_list()
         X_tensor_list = []
         for element in X_list:
-            numeric_tensor=tf.io.decode_raw(input_bytes=element, out_type=tf.int32, little_endian=False, fixed_length=num_bytes, name=None) # Convert raw bytes from input tensor into numeric tensors. Returns: A Tensor object storing the decoded bytes.
+            numeric_tensor=tf.io.decode_raw(input_bytes=element, out_type=tf.int32, little_endian=False, fixed_length=num_bytes, name=None)
             X_tensor_list.append(numeric_tensor)
-        X_train = np.array(X_tensor_list).astype(np.int32) # astype(np.float32) # astype(np.int32)
-        scaler = StandardScaler() # Normalize the data using StandardScaler
+        X_train = np.array(X_tensor_list).astype(np.int32)
+        scaler = StandardScaler()
         X_train_normalized = scaler.fit_transform(X_train)
-        # print("X_train_normalized: \n", X_train_normalized)
         return X_train_normalized
     
     def get_unsw_flow_data(self, df):
-        # Netflowv9:
-            ##### The following 6 Netflow Features are to dropped from training to avoid bias in ML training. ###########
-            # %IPV4_SRC_ADDR --> srcip
-            # %L4_SRC_PORT --> sport
-            # %IPV4_DST_ADDR --> dstip
-            # %L4_DST_PORT --> dsport
-            # %FLOW_START_MILLISECONDS --> stime
-            # %FLOW_END_MILLISECONDS --> ltime
-            # %PROTOCOL_MAP --> proto
-            ##### The following 6 Netflow Features are to be considered in future work. ###########
-            # %FLOW_DURATION_MILLISECONDS --> dur
-            # %IN_BYTES --> dbytes
-            # %IN_PKTS --> dpkts
-            # %OUT_BYTES --> sbytes 
-            # %OUT_PKTS --> spkts
-            # %L7_PROTO_NAME --> service
-            ##### The following 7 Netflow Features are to be considered in future work. ###########
-            # %MIN_PKT_LNGTH %MAX_PKT_LNGTH --> smeansz, dmeansz
-            # %TCP_FLAGS 
-            # %MIN_TTL %MAX_TTL --> sttl, dttl
-            # %TCP_WIN_MAX_IN %TCP_WIN_MAX_OUT 
         drop_cols = ["attackcat", "label", "srcip", "sport", "dstip", "dport", "proto", "stime", "ltime",
                         "sttl", "dttl", "sloss", "dloss", "sload", "dload",
                         "smeansz", "dmeansz", "transdepth", "resbdylen", "sjit", "djit",
                         "sintpkt", "dintpkt", "tcprtt", "synack", "ackdat", "issmipsports", "ctstatettl",
                         "ctflwhttpmthd", "isftplogin", "ctftpcmd", "cssrvsrc", "ctsrvdst", "ctdstltm", "ctsrcltm", 
                         "ctsrcdportltm", "ctdstsportltm", "ctdstsrcltm"]
-        # X_train_df = df.drop(columns=["attackcat","label", "srcip", "sport", "dstip", "dport", "proto"]) # ,"service" # , "stime", "ltime"])
         X_train_df = df.drop(columns=drop_cols)
-        X_train_df.replace(['', ' ', '\n', '\t'], 0, inplace=True) # , '-'
+        X_train_df.replace(['', ' ', '\n', '\t'], 0, inplace=True)
         X_train_df.fillna(value=0, axis=1, inplace=True)
-        cat_attribs = ["service"] # "state",
-        # ord_attribs = ["stime", "ltime"]
-        """ numeric_attribs = ["dur", "sbytes", "dbytes", "sttl", "dttl", "sloss", "dloss", "sload", "dload", "spkts", "dpkts", 
-                        "swin", "dwin", "stcpb", "dtcpb", "smeansz", "dmeansz", "transdepth", "resbdylen", "sjit", "djit",
-                        "sintpkt", "dintpkt", "tcprtt", "synack", "ackdat", "issmipsports", "ctstatettl",
-                        "ctflwhttpmthd", "isftplogin", "ctftpcmd", "cssrvsrc", "ctsrvdst", "ctdstltm", "ctsrcltm", 
-                        "ctsrcdportltm", "ctdstsportltm", "ctdstsrcltm"] """
+        cat_attribs = ["service"]
         if self.protocol=='tcp':
-            numeric_attribs = ["dur", "sbytes", "dbytes", "spkts", "dpkts"] # , "swin", "dwin", "stcpb", "dtcpb"] # TODO: check shape vs above version
-            # sttl, dttl
+            numeric_attribs = ["dur", "sbytes", "dbytes", "spkts", "dpkts"]
         elif self.protocol=='udp':
-            numeric_attribs = ["dur", "sbytes", "dbytes", "spkts", "dpkts"] # TODO: check shape vs above version
+            numeric_attribs = ["dur", "sbytes", "dbytes", "spkts", "dpkts"]
         else:
             print("Uknown protocol. Exiting ...")
             return
-        # numeric_cols = list(selector(dtype_include=["int", "float"])(X_train_df[numeric_attribs]))
-        ordinal_transformer = Pipeline(steps=[
-            ('ordinal', OrdinalEncoder())
-        ])
         categorical_transformer = Pipeline(steps=[
             ('to_string', FunctionTransformer(lambda x: x.astype(str), validate=False, accept_sparse=True)),
             ('onehot', OneHotEncoder(sparse_output=True, handle_unknown="ignore"))
@@ -699,14 +665,13 @@ class DataManager:
         ])
         preprocessor = ColumnTransformer(
             transformers=[
-                ('num', numeric_transformer, numeric_attribs),  # Specify numerical features
-                # ("ord", ordinal_transformer, ord_attribs),
+                ('num', numeric_transformer, numeric_attribs),
                 ("cat", categorical_transformer, cat_attribs),
                 ]) 
-        X_train = preprocessor.fit_transform(X_train_df)#.toarray()
-        if hasattr(X_train, 'toarray'): # Apply toarray() if data is a sparse matrix
+        X_train = preprocessor.fit_transform(X_train_df)
+        if hasattr(X_train, 'toarray'):
             X_train = X_train.toarray()
-        X_train = np.array(X_train).astype(np.float32) # astype(np.int32) # .astype(np.float32) # np.array(train_data).astype(np.float32) # astype(np.int32) # .astype(np.float32)
+        X_train = np.array(X_train).astype(np.float32)
         print("X_train.shape: ", X_train.shape)
         return X_train
     
@@ -719,7 +684,6 @@ class DataManager:
         for key in label_list:
             value = label_dict[key]
             binary_labels.append(value)
-        # print("binary_labels: \n", binary_labels) # Note: 'Normal', 'Attack' values returned, need label encoding.
         return binary_labels, label_dict
     
     def get_unsw_multi_class_labels(self, df):
@@ -730,7 +694,6 @@ class DataManager:
             label_dict[label_counter] = i
             label_counter += 1
         label_list = df['attackcat'].to_list()
-        # print("label_list: \n", label_list) # Note: 'Normal', 'DoS', "Exploits", ... values returned, need label encoding.
         return label_list, label_dict   
     
     def get_payload_df(self, protocol='tcp'):
@@ -760,15 +723,13 @@ class DataManager:
             stat='count',
             bins=25,
             fill=True,
-            # log_scale = True,
             hue='label',
             alpha = 0.5,
-            # kde=True,
         )
         ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
         ax.set(yscale="log")
-        ax.set_xlabel("Payload size (bytes)") # r'\textit{Payload length (bytes)}'
-        ax.set_ylabel("Number of packets (log scale)") # r'\textit{Number of packets (log)}'
+        ax.set_xlabel("Payload size (bytes)")
+        ax.set_ylabel("Number of packets (log scale)")
         sns.move_legend(ax, "upper center", bbox_to_anchor=(0.5, 0.8), ncol=2, title=None, frameon=False,)
         fig.tight_layout()
         file_name = os.path.join('/app/results/', f"{protocol}_binary_payload_byte_distribution.pdf")
@@ -782,19 +743,16 @@ class DataManager:
         sns.despine(fig)
         sns.histplot(
             df,
-            x="payload_length", # payloadlength
+            x="payload_length",
             stat='count',
             bins=25,
             fill=False,
-            # log_scale = True,
             hue='attackcat',
-            # alpha = 0.7,
-            # kde=True,
         )
         ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
         ax.set(yscale="log")
-        ax.set_xlabel("Payload size (bytes)") # r'\textit{Payload length (bytes)}'
-        ax.set_ylabel("Number of packets (log scale)") # r'\textit{Number of packets (log)}'
+        ax.set_xlabel("Payload size (bytes)")
+        ax.set_ylabel("Number of packets (log scale)")
         sns.move_legend(ax, "upper center", bbox_to_anchor=(0.55, 1.1), ncol=2, title=None, frameon=False,)
         fig.tight_layout()
         file_name = os.path.join('/app/results/', f"{protocol}_multiattack_payload_byte_distribution.pdf")
@@ -808,7 +766,7 @@ class DataManager:
         if dataset == "unsw":
             label_tbl_name = 'unsw_nb15_csv_features_cleaned_unique'
             label_tbl = Table(label_tbl_name, metadata,
-                            Column('id', Integer, primary_key=True), # autoincrement=True), 
+                            Column('id', Integer, primary_key=True),
                             Column('srcip', String),
                             Column('sport', String),
                             Column('dstip', String), 
@@ -867,7 +825,7 @@ class DataManager:
                 print("Unknown protocol. Exiting ...")
                 return
             payload_tbl = Table(payload_tbl_name, metadata,
-                            Column('id', Integer, primary_key=True), # autoincrement=True),
+                            Column('id', Integer, primary_key=True),
                             Column('stimepcap', String), 
                             Column('srcip', String),
                             Column('sport', String), 
@@ -929,7 +887,7 @@ class DataManager:
                 seed_value = 42
                 connection.execute(func.text(f"SELECT setseed({seed_value})"))
                 condition = (
-                    (func.split_part(payload_tbl.c.stimepcap, '.', 1)  == label_tbl.c.stime) &  # Taking the non-decimal part of pcap timestamp to match stime precision
+                    (func.split_part(payload_tbl.c.stimepcap, '.', 1)  == label_tbl.c.stime) &
                     (payload_tbl.c.srcip == label_tbl.c.srcip) & 
                     (payload_tbl.c.sport == label_tbl.c.sport) & 
                     (payload_tbl.c.dstip == label_tbl.c.dstip) & 
@@ -938,12 +896,12 @@ class DataManager:
                     (label_tbl.c.proto == protocol) &
                     (payload_tbl.c.payload != '')
                 )
-                count_subquery = ( # Build the subquery to calculate the total count of rows
+                count_subquery = (
                     select(func.count())
                     .select_from(label_tbl.join(payload_tbl, condition))
                     .scalar_subquery()
                 )
-                num_rows_to_select = func.ceil(count_subquery * data_percentage / 100) # Calculate the number of rows to select based on the fixed percentage
+                num_rows_to_select = func.ceil(count_subquery * data_percentage / 100)
                 query = select(label_tbl).join(payload_tbl, condition).order_by(func.random()).limit(num_rows_to_select)
                 rows = connection.execute(query).fetchall()
                 if self.protocol=='tcp' or self.protocol=='udp':
@@ -965,7 +923,7 @@ class DataManager:
             samples_labels = list(zip(X,y))
             random.shuffle(samples_labels)
             X, y = zip(*samples_labels)
-            X = np.asarray(X) # , dtype=np.32)
+            X = np.asarray(X)
             y = np.asarray(y)
             return X, y, df
     
@@ -976,7 +934,7 @@ class DataManager:
         if dataset == "unsw":
             label_tbl_name = 'unsw_nb15_csv_features_cleaned_unique'
             label_tbl = Table(label_tbl_name, metadata,
-                            Column('id', Integer, primary_key=True), # autoincrement=True),
+                            Column('id', Integer, primary_key=True),
                             Column('srcip', String),
                             Column('sport', String),
                             Column('dstip', String), 
@@ -1095,7 +1053,7 @@ class DataManager:
         with engine.connect() as connection:
             if dataset=='unsw':
                 condition = (
-                    (func.split_part(payload_tbl.c.stimepcap, '.', 1)  == label_tbl.c.stime) &  # Taking the non-decimal part of pcap timestamp to match stime precision
+                    (func.split_part(payload_tbl.c.stimepcap, '.', 1)  == label_tbl.c.stime) &
                     (payload_tbl.c.srcip == label_tbl.c.srcip) & 
                     (payload_tbl.c.sport == label_tbl.c.sport) & 
                     (payload_tbl.c.dstip == label_tbl.c.dstip) & 
@@ -1106,7 +1064,7 @@ class DataManager:
                 )
                 seed_value = 42
                 connection.execute(func.text(f"SELECT setseed({seed_value})"))
-                count_subquery = ( # Build the subquery to calculate the total count of rows
+                count_subquery = (
                     select(func.count())
                     .select_from(label_tbl.join(payload_tbl, condition))
                     .scalar_subquery()
@@ -1133,6 +1091,6 @@ class DataManager:
         samples_labels = list(zip(X,y))
         random.shuffle(samples_labels)
         X, y = zip(*samples_labels)
-        X = np.asarray(X)#, dtype=np.int32)
+        X = np.asarray(X)
         y = np.asarray(y)
         return X, y, df
