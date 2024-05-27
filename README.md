@@ -85,7 +85,7 @@ To run Multimodal-NIDS, open another terminal tab (Ctrl + Shift + T) and use the
  Multimodal-NIDS has two ML subsystems, a flow-based susbsytem and a payload-based subsystem, which are trained using flow-based traffic features and the first 32 bytes of protocol payload, respectively. Separate ML models are trained for Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) of the UNSW-NB15 dataset. Note that TCP and UDP constitute more than 97% of total traffic flows in the dataset. The trained ML models as well as the model evaluation results are saved in the *results* subdirectory.
 # Citation
 Our paper [Network intrusion detection leveraging multimodal features](https://www.sciencedirect.com/science/article/pii/S2590005624000158?via%3Dihub) presents details of how the proposed multimodal NIDS works and the obtained experimental results.
-If you would like to refer the paper in your research, you can use the following citation:
+If you would like to refer the paper in your research, please use the following citation details.
 ```bash
 @article{kiflay2024network,
   title={Network intrusion detection leveraging multimodal features},
