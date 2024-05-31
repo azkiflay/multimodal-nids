@@ -61,10 +61,12 @@ The following command downloads a test image and runs it in a container.
   sudo docker run hello-world
   ```
 When the container runs, it should print a confirmation message. If so, you have now successfully installed and started Docker Engine.
-### Install NVIDIA GPU Drivers for Tensorflow on host machine
+<!-- ### Install NVIDIA GPU Drivers for Tensorflow on host machine
   ```bash
   sudo apt install nvidia-cuda-toolkit
   ```
+ -->
+ 
 # Usuage
 Open terminal and run the project using the following commands.
   ```bash
